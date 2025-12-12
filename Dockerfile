@@ -1,4 +1,4 @@
-FROM kindest/node:v1.32.0
+FROM kindest/node:v1.31.0
 
 # Env vars for proxy - MUST be first for apt to work
 ARG HTTP_PROXY
