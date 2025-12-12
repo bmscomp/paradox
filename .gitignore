@@ -1,0 +1,14 @@
+# System files
+.DS_Store
+
+# Certificates and Secrets
+certs/
+*.pem
+*.crt
+*.key
+
+# Generated Configuration
+config/resolv.conf
+
+# Metadata
+.gemini/

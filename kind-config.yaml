@@ -1,0 +1,26 @@
+kind: Cluster
+apiVersion: kind.x-k8s.io/v1alpha4
+name: paradox
+nodes:
+- role: control-plane
+  kubeadmConfigPatches:
+  - |
+    kind: InitConfiguration
+    nodeRegistration:
+      name: alpha
+- role: worker
+  kubeadmConfigPatches:
+  - |
+    kind: JoinConfiguration
+    nodeRegistration:
+      name: gamma
+- role: worker
+  kubeadmConfigPatches:
+  - |
+    kind: JoinConfiguration
+    nodeRegistration:
+      name: segma
+networking:
+  disableDefaultCNI: false
+  # Ensuring internal resolution of host.docker.internal often requires no extra config on Mac 
+  # but sometimes `extraPortMappings` or DNS patches are needed if we were not using the special DNS name.
