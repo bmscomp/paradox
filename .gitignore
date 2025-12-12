@@ -10,5 +10,12 @@ certs/
 # Generated Configuration
 config/resolv.conf
 
-# Metadata
-.gemini/
+
+# IDEs
+.idea/
+*.iml
+.vscode/
+*.swp
+*.project
+*.classpath
+.settings/
