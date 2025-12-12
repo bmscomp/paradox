@@ -20,6 +20,29 @@ This project sets up a `kind` Kubernetes cluster named `paradox` with a custom n
 
 1. **Configure Proxy**:
    Update `config/proxy.env` with your local proxy settings if they differ from defaults.
+   
+   **Use Proxy Simulator (optional):**
+   If you need to simulate a corporate proxy locally:
+   ```bash
+   make proxy-setup
+   make proxy-start
+   ```
+   *Keep the proxy running in a separate terminal.*
+   
+   **Important**: Trust the simulator certificate on your host (required for Docker pulls):
+   ```bash
+   make proxy-trust
+   ```
+   
+   Then export the simulator's certificate for the build:
+   ```bash
+   make export-mitm-cert
+   ```
+
+   **Shortcut**: You can also use the dev mode to automatically export the simulator cert and build:
+   ```bash
+   make dev
+   ```
 
 2. **Build the image** (automatically attempts to export Zscaler cert):
    ```bash

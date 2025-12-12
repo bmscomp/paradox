@@ -6,18 +6,23 @@ nodes:
   kubeadmConfigPatches:
   - |
     kind: InitConfiguration
+    apiVersion: kubeadm.k8s.io/v1beta4
     nodeRegistration:
       name: alpha
+      kubeletExtraArgs:
+        node-labels: "ingress-ready=true"
 - role: worker
   kubeadmConfigPatches:
   - |
     kind: JoinConfiguration
+    apiVersion: kubeadm.k8s.io/v1beta4
     nodeRegistration:
       name: gamma
 - role: worker
   kubeadmConfigPatches:
   - |
     kind: JoinConfiguration
+    apiVersion: kubeadm.k8s.io/v1beta4
     nodeRegistration:
       name: segma
 networking:
