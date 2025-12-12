@@ -10,10 +10,6 @@ if [ ! -f certs/zscaler.pem ]; then
     touch certs/zscaler.pem
 fi
 
-# Copy host resolv.conf
-mkdir -p config
-cp /etc/resolv.conf config/resolv.conf
-
 # Load proxy config
 if [ -f config/proxy.env ]; then
     export $(cat config/proxy.env | xargs)

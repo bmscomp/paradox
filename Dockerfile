@@ -1,4 +1,4 @@
-FROM kindest/node:v1.31.0
+FROM kindest/node:v1.34.0
 
 # Env vars for proxy - MUST be first for apt to work
 ARG HTTP_PROXY
@@ -15,9 +15,6 @@ ENV no_proxy=$NO_PROXY
 # Config Certs - MUST be before apt-get so we trust the proxy
 COPY certs/zscaler.pem /usr/local/share/ca-certificates/zscaler.crt
 RUN update-ca-certificates
-
-# DNS Config
-COPY config/resolv.conf /etc/resolv.conf
 
 
 RUN rm -f /etc/apt/apt.conf.d/*proxy*
