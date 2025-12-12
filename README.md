@@ -18,7 +18,10 @@ This project sets up a `kind` Kubernetes cluster named `paradox` with a custom n
 
 ## Usage
 
-1. **Build the image** (automatically attempts to export Zscaler cert):
+1. **Configure Proxy**:
+   Update `config/proxy.env` with your local proxy settings if they differ from defaults.
+
+2. **Build the image** (automatically attempts to export Zscaler cert):
    ```bash
    make build
    ```
