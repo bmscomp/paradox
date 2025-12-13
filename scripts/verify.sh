@@ -39,6 +39,9 @@ for node in $CONTAINERS; do
     else
          echo "  DNS: FAILED"
     fi
+    else
+        echo "Container '$node' NOT found."
+    fi
 done
 echo "------------------------------------------------"
 echo "Verification complete."
