@@ -23,6 +23,9 @@ for node in $CONTAINERS; do
     docker exec $node which dig > /dev/null && echo "  dig: OK" || echo "  dig: MISSING"
 
     # Check proxy/internet
+    echo "Checking proxy environment variables..."
+    docker exec $node env | grep -E 'HTTP_PROXY|HTTPS_PROXY|NO_PROXY|http_proxy|https_proxy|no_proxy' || echo "  No proxy vars found"
+    
     echo "Checking internet connectivity via proxy..."
     # We expect HTTP_PROXY to be set in the container
     # We try to reach google.com
