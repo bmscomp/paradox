@@ -6,22 +6,30 @@ nodes:
   kubeadmConfigPatches:
   - |
     kind: InitConfiguration
+    apiVersion: kubeadm.k8s.io/v1beta4
     nodeRegistration:
       name: alpha
       kubeletExtraArgs:
         node-labels: "ingress-ready=true"
+        hostname-override: "alpha"
 - role: worker
   kubeadmConfigPatches:
   - |
     kind: JoinConfiguration
+    apiVersion: kubeadm.k8s.io/v1beta4
     nodeRegistration:
       name: gamma
+      kubeletExtraArgs:
+        hostname-override: "gamma"
 - role: worker
   kubeadmConfigPatches:
   - |
     kind: JoinConfiguration
+    apiVersion: kubeadm.k8s.io/v1beta4
     nodeRegistration:
       name: segma
+      kubeletExtraArgs:
+        hostname-override: "segma"
 networking:
   disableDefaultCNI: false
   # Ensuring internal resolution of host.docker.internal often requires no extra config on Mac 

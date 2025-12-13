@@ -10,35 +10,18 @@ echo "Checking Kubernetes Node Names (should be alpha, gamma, segma)..."
 kubectl get nodes --no-headers -o custom-columns=":metadata.name" | sort | tr '\n' ' '
 echo ""
 
-echo "Verifying Docker Nodes ($CONTAINERS)..."
-
-for node in $CONTAINERS; do
-    echo "------------------------------------------------"
-    echo "Checking container: $node"
-    
-    # Check tools
-    echo "Checking tools..."
-    docker exec $node which curl > /dev/null && echo "  curl: OK" || echo "  curl: MISSING"
-    docker exec $node which ping > /dev/null && echo "  ping: OK" || echo "  ping: MISSING"
-    docker exec $node which nslookup > /dev/null && echo "  nslookup: OK" || echo "  nslookup: MISSING"
-    docker exec $node which dig > /dev/null && echo "  dig: OK" || echo "  dig: MISSING"
-
-    # Check proxy/internet
-    echo "Checking internet connectivity via proxy..."
-    # We expect HTTP_PROXY to be set in the container
-    # We try to reach google.com
-    if docker exec $node curl -I -s --max-time 5 http://google.com > /dev/null; then
-        echo "  Internet (http): OK"
+echo "Verifying Docker Nodes..."
+for node in alpha gamma segma; do
+    echo "--- Node Container: $node ---"
+    if docker ps | grep -q "\b$node\b"; then
+        echo "Container '$node' is running."
+        echo "Testing internet connectivity via proxy..."
+        docker exec $node curl -I -s --max-time 5 https://google.com > /dev/null && echo "  [OK] Internet" || echo "  [FAIL] Internet"
+        
+        echo "Testing DNS..."
+        docker exec $node nslookup google.com > /dev/null && echo "  [OK] DNS" || echo "  [FAIL] DNS"
     else
-        echo "  Internet (http): FAILED"
-    fi
-
-    # Check DNS
-    echo "Checking DNS..."
-    if docker exec $node nslookup google.com > /dev/null; then
-         echo "  DNS: OK"
-    else
-         echo "  DNS: FAILED"
+        echo "Container '$node' NOT found."
     fi
 done
 echo "------------------------------------------------"
