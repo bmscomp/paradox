@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-IMAGE_NAME="paradox-node:v1.31.0"
+IMAGE_NAME="paradox-node:v1.34.0"
 
 echo "Building custom Kind node image: $IMAGE_NAME"
 # Check for cert exists
@@ -9,6 +9,12 @@ if [ ! -f certs/zscaler.pem ]; then
     echo "Warning: certs/zscaler.pem not found! Creating dummy."
     touch certs/zscaler.pem
 fi
+
+# Prepare DNS from host and append Google DNS
+mkdir -p config
+cat /etc/resolv.conf > config/resolv.conf
+echo "nameserver 8.8.8.8" >> config/resolv.conf
+echo "nameserver 8.8.4.4" >> config/resolv.conf
 
 # Load proxy config for build args only
 PROXY_ARGS=""
