@@ -12,8 +12,8 @@ ENV http_proxy=$HTTP_PROXY
 ENV https_proxy=$HTTPS_PROXY
 ENV no_proxy=$NO_PROXY
 
-# DNS Configuration
-COPY config/resolv.conf /etc/resolv.conf
+# DNS Configuration - REVERTED: Overwriting resolv.conf breaks host.docker.internal resolution
+# COPY config/resolv.conf /etc/resolv.conf
 
 # Config Certs - MUST be before apt-get so we trust the proxy
 COPY certs/zscaler.pem /usr/local/share/ca-certificates/zscaler.crt
