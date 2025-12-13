@@ -44,5 +44,6 @@ docker build \
   --build-arg http_proxy="${BUILD_HTTP_PROXY}" \
   --build-arg https_proxy="${BUILD_HTTPS_PROXY}" \
   --build-arg no_proxy="${BUILD_NO_PROXY}" \
+  --add-host host.docker.internal=host-gateway \
   -t $IMAGE_NAME .
 echo "Build complete."

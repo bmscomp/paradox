@@ -10,19 +10,22 @@ nodes:
       name: alpha
       kubeletExtraArgs:
         node-labels: "ingress-ready=true"
+        hostname-override: "alpha"
 - role: worker
   kubeadmConfigPatches:
   - |
     kind: JoinConfiguration
     nodeRegistration:
       name: gamma
+      kubeletExtraArgs:
+        hostname-override: "gamma"
 - role: worker
   kubeadmConfigPatches:
   - |
     kind: JoinConfiguration
     nodeRegistration:
       name: segma
+      kubeletExtraArgs:
+        hostname-override: "segma"
 networking:
   disableDefaultCNI: false
-  # Ensuring internal resolution of host.docker.internal often requires no extra config on Mac 
-  # but sometimes `extraPortMappings` or DNS patches are needed if we were not using the special DNS name.

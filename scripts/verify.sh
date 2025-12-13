@@ -10,11 +10,10 @@ echo "Checking Kubernetes Node Names (should be alpha, gamma, segma)..."
 kubectl get nodes --no-headers -o custom-columns=":metadata.name" | sort | tr '\n' ' '
 echo ""
 
-echo "Verifying Docker Nodes ($CONTAINERS)..."
-
+echo "Verifying Docker Nodes..."
 for node in $CONTAINERS; do
-    echo "------------------------------------------------"
-    echo "Checking container: $node"
+    echo "--- Node Container: $node ---"
+    if docker ps | grep -q "\b$node\b"; then echo "Checking container: $node"
     
     # Check tools
     echo "Checking tools..."
